@@ -1,0 +1,349 @@
+ALERT
+
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Alerts {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "D:\\New folder (2)\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://the-internet.herokuapp.com/javascript_alerts");
+		driver.manage().window().maximize();
+		
+		Thread.sleep(2000);
+//		//How to handle Alert window with ok button
+//		driver.findElement(By.xpath("//button[contains(text(),'Click for JS Alert')]")).click();
+//		Thread.sleep(7000);
+//		driver.switchTo().alert().accept();
+//		
+		
+		//Alert window with ok and cancle button
+		
+//		  driver.findElement(By.xpath("//button[text()='Click for JS Confirm']")).click(); 
+//		  Thread.sleep(7000);
+////		  driver.switchTo().alert().accept(); //It will close the alert with ok button 
+//		  driver.switchTo().alert().dismiss(); //It will close the alert with cancle button
+		 
+		
+//		Alert window with input box
+		driver.findElement(By.xpath("//button[text()='Click for JS Prompt']")).click();
+		Thread.sleep(7000);
+		Alert AlertWindow=driver.switchTo().alert();  //It will store alert in AlertWindow variable
+		System.out.println("Message displayed on Alert:" +AlertWindow.getText());   //Print the text from alert window
+		AlertWindow.sendKeys("Test");	//It will enter value in input box
+		Thread.sleep(2000);
+		AlertWindow.accept();		//It will accept the alert by clicking on ok
+		  driver.close();
+		
+	}
+
+}
+
+========================================================================
+
+DOUBLE-CLICK
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+
+public class DoubleClickAction {
+
+	public static void main(String[] args) throws InterruptedException{
+		System.setProperty("webdriver.chrome.driver", "D:\\New folder (2)\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_ev_ondblclick3");
+		driver.manage().window().maximize();
+		driver.switchTo().frame("iframeResult");
+		Thread.sleep(2000);
+		driver.findElement(By.id("field1")).clear();
+		Thread.sleep(2000);
+		driver.findElement(By.id("field1")).sendKeys("Welcome to selenium");
+		Thread.sleep(2000);
+		WebElement button=driver.findElement(By.xpath("//button[text()='Copy Text']"));
+		Actions act=new Actions(driver);
+		Thread.sleep(2000);
+	//	act.doubleClick(button).perform();
+		act.doubleClick(button).perform();
+	}
+
+}
+
+==========================================================================
+
+KEYBOARD-ACTION
+
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class KeyboardAction {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "D:\\New folder (2)\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://the-internet.herokuapp.com/key_presses");
+		Actions act=new Actions(driver);
+	//	act.sendKeys(Keys.ENTER).perform();
+		act.sendKeys(Keys.CANCEL).perform();
+	}
+
+}
+
+========================================================================
+
+LOCATORS
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Locators1 {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "D:\\New folder (2)\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("http://automationpractice.com/index.php");
+		driver.manage().timeouts().implicitlyWait(3000, TimeUnit.MILLISECONDS);
+		driver.manage().window().maximize();
+		
+		WebDriverWait wait = new WebDriverWait(driver, 100);
+		//id locator
+//		driver.findElement(By.id("search_query_top")).sendKeys("T-shirts");
+		//name locator
+//		driver.findElement(By.name("submit_search")).click();
+		//linktext
+//		driver.findElement(By.linkText("Printed Chiffon Dress")).click();
+		//partial link text
+//		driver.findElement(By.partialLinkText("Chiffon Dress")).click();
+		WebElement element = driver.findElement(By.id("search_query_top"));
+		wait.until(ExpectedConditions.visibilityOf(element));
+		element.sendKeys("T-shirts");
+		driver.findElement(By.name("submit_search")).click();
+//		driver.findElement(By.linkText("Printed Chiffon Dress")).click();
+		driver.findElement(By.partialLinkText("Chiffon Dress")).click();
+		
+	}
+
+}
+=============================================================================
+
+MOUSE-DRAG-AND-DROP
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class MouseDragAndDrop {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "D:\\New folder (2)\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("http://www.dhtmlgoodies.com/scripts/drag-drop-custom/demo-drag-drop-3.html");
+		driver.manage().window().maximize();
+		WebElement Rome=driver.findElement(By.id("box6"));
+		WebElement Italy=driver.findElement(By.id("box106"));
+		Actions act=new Actions(driver);
+		act.dragAndDrop(Rome, Italy).perform();
+	}
+
+}
+
+===========================================================================
+
+MOUSE-HOVER-ACTION
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class MouseHoverActions {
+
+	public static void main(String[] args) {
+//		WebDriverManager.chromedriver().setup();
+//		WebDriver driver=new ChromeDriver();
+//		driver.get("https://demo.opencart.com/");
+//		driver.manage().window().maximize();
+//		WebElement DesktopsMenu=driver.findElement(By.xpath("//a[text()=\"Desktops\"]"));
+//		WebElement MACMenu=driver.findElement(By.xpath("//a[text()=\"Mac (1)\"]"));
+//		Actions act=new Actions(driver);
+//		act.moveToElement(DesktopsMenu).moveToElement(MACMenu).click().perform();
+////		act.moveToElement(DesktopsMenu).moveToElement(MACMenu)
+//		driver.close();
+		System.setProperty("webdriver.chrome.driver", "D:\\New folder (2)\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://demo.opencart.com/");
+		driver.manage().window().maximize();
+		WebElement NoteBooks=driver.findElement(By.xpath("//a[text()='Laptops & Notebooks']"));
+		WebElement Windows=driver.findElement(By.xpath("//a[text()='Windows (0)']"));
+		Actions act=new Actions(driver);
+		act.moveToElement(NoteBooks).moveToElement(Windows).click().perform();
+		driver.close();
+		
+	}
+
+}
+
+===================================================================================
+
+MOUSE-RIGHT-CLICK
+
+import org.openqa.selenium.By;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class MouseRightClickAction {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "D:\\New folder (2)\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://swisnl.github.io/jQuery-contextMenu/demo.html");
+		driver.manage().window().maximize();
+		WebElement button=driver.findElement(By.xpath("//span[text()='right click me']"));
+//		WebElement button=driver.findElement(By.xpath("//span[@class=\"context-menu-one btn btn-neutral\"]"));
+//		Actions act=new Actions(driver);
+//		//This method used for right click and here we are passing element on which we are going to perform right click action 
+//		act.contextClick(button).perform();			//perform will complete the action
+		Actions action=new Actions(driver);
+		action.contextClick(button).perform();
+		
+	}
+
+}
+===================================================================================
+
+PRACTICE-END-TO-END
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Practice_End_To_End {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.gecko.driver", "D:\\browserDrivers\\geckodriver.exe");
+		WebDriver driver= new FirefoxDriver();
+		driver.get("http://automationpractice.com/index.php");  //Enter URL
+		
+		//Search T-shirt
+		driver.findElement(By.id("search_query_top")).sendKeys("T-shirts");
+		driver.findElement(By.name("submit_search")).click();
+		Thread.sleep(2000);
+		
+		//Click on printed dress
+		driver.findElement(By.linkText("Printed Dress")).click();
+		driver.findElement(By.id("add_to_cart")).click();
+//		driver.switchTo().activeElement();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@class=\"clearfix\"]//a[@title='Proceed to checkout']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[text()=\"Proceed to checkout\"]")).click();
+		driver.findElement(By.id("email")).sendKeys("cdac@gmail.com");
+		driver.findElement(By.id("passwd")).sendKeys("Cdac@1234");
+		driver.findElement(By.id("SubmitLogin")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[text()='Proceed to checkout']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("cgv")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.name("processCarrier")).click();
+		driver.findElement(By.partialLinkText("Pay by check")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[text()='I confirm my order']")).click();
+	}
+
+}
+=================================================================================
+
+TESTNG-BASICS
+
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class TestNGBasics {
+	//Precondition annotations--Start with @Before
+	@BeforeSuite			//1
+	public void SetupBrowser() {
+		System.out.println("Setup browser");
+	}
+	@BeforeTest				//2
+	public void LaunchBrowser() {
+		System.out.println("Launch chrome browser");
+	}
+	@BeforeClass			//3
+	public void EnterURL() {
+		System.out.println("Enter URL");
+	}
+	@BeforeMethod			//4
+	public void Login() {
+		System.out.println("Login into application");
+	}
+	
+	//Test Cases annotations---Start with Test
+	@Test(priority = 1, groups="Inbox",enabled=true,dependsOnMethods = "CreateMail")			//5	
+	public void SendMail() {
+		System.out.println("Check whether able to send mail");
+	}
+	@Test(priority=3,groups="Inbox",enabled = true)	
+	public void SaveAsDraft() {
+		System.out.println("Check whether able to save as draft");
+	}
+	
+	@Test(priority=4,groups="Test",enabled = true)	
+	public void DeleteMail() {
+	System.out.println("Check whether able to delete a mail");
+	}
+	
+	@Test(priority = 1,groups="Test",enabled = true)	
+	public void CreateMail() {
+	System.out.println("Check whether able to create a mail");
+	}
+	
+	//Postcondition annotations---Start with @After
+	@AfterMethod			//6
+	public void Logout() {
+		System.out.println("Logout from application");
+	}
+	@AfterClass				//7	
+	public void DeleteAllCookies() {
+	System.out.println("Delete All Cookied");	
+	}
+	@AfterTest				//8
+	public void CloseBrowser() {
+		System.out.println("Close the browser");
+	}
+	
+}
+===============================================================================
+
+
