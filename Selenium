@@ -1,0 +1,44 @@
+package abc;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class AllInOne {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "F:\\Selenium\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("http://automationpractice.com/index.php");  //Enter URL
+		driver.manage().window().maximize();
+		
+		//Search T-shirt
+		driver.findElement(By.id("search_query_top")).sendKeys("T-shirts");
+		driver.findElement(By.name("submit_search")).click();
+		Thread.sleep(4000);
+		
+		//Click on printed dress
+		driver.findElement(By.linkText("Printed Dress")).click();
+		driver.findElement(By.id("add_to_cart")).click();
+		driver.switchTo().activeElement();
+		Thread.sleep(4000);
+		driver.findElement(By.xpath("//div[@class=\"clearfix\"]//a[@title='Proceed to checkout']")).click();
+		Thread.sleep(4000);
+		driver.findElement(By.xpath("//span[text()=\"Proceed to checkout\"]")).click();
+		driver.findElement(By.id("email")).sendKeys("cdac@gmail.com");
+		driver.findElement(By.id("passwd")).sendKeys("Cdac@1234");
+		driver.findElement(By.id("SubmitLogin")).click();
+		Thread.sleep(4000);
+		driver.findElement(By.xpath("//span[text()='Proceed to checkout']")).click();
+		Thread.sleep(4000);
+		driver.findElement(By.id("cgv")).click();
+		Thread.sleep(4000);
+		driver.findElement(By.name("processCarrier")).click();
+		driver.findElement(By.partialLinkText("Pay by check")).click();
+		Thread.sleep(4000);
+		driver.findElement(By.xpath("//span[text()='I confirm my order']")).click();
+	}
+
+}
